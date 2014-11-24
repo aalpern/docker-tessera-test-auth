@@ -17,6 +17,7 @@ run	pip install --install-option="--prefix=/var/lib/graphite" --install-option="
 
 # Add system service config
 add	./nginx.conf /etc/nginx/nginx.conf
+add	./htpasswd /etc/nginx/htpasswd
 add	./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Add graphite config

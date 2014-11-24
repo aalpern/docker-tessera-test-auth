@@ -8,7 +8,7 @@ run	apt-get -y install \
     python-ldap python-cairo python-django python-twisted python-django-tagging \
     python-simplejson python-memcache python-pysqlite2 python-support python-pip \
     gunicorn supervisor nginx-light \
-    git curl
+    git curl emacs
 
 run	pip install bpython
 run	pip install whisper
@@ -43,6 +43,8 @@ run	npm install
 run	grunt
 run	invoke db.init
 run	invoke run & sleep 5 && invoke json.import 'demo/*.json'
+
+env	TERM xterm
 
 # Nginx
 expose	:80

@@ -10,6 +10,8 @@ run	apt-get -y install \
     gunicorn supervisor nginx-light \
     git curl emacs
 
+run apt-get -y install python-dev
+
 run	pip install bpython
 run	pip install whisper
 run	pip install --install-option="--prefix=/var/lib/graphite" --install-option="--install-lib=/var/lib/graphite/lib" carbon
@@ -33,16 +35,15 @@ run	chmod 0664 /var/lib/graphite/storage/graphite.db
 run	cd /var/lib/graphite/webapp/graphite && python manage.py syncdb --noinput
 
 # Tessera
+run pip install virtualenv
 add ./config.py /var/lib/tessera/config.py
+run echo WAT
 run	git clone https://github.com/urbanairship/tessera.git /src/tessera
 workdir	/src/tessera
-run	pip install -r requirements.txt
-run	pip install -r dev-requirements.txt
-run	npm install -g grunt-cli
-run	npm install
-run	grunt
-run	invoke db.init
-run	invoke run & sleep 5 && invoke json.import 'demo/*.json'
+run git checkout development
+run ./script/setup
+workdir	/src/tessera/tessera-server
+run	. env/bin/activate && inv run & sleep 5 && . env/bin/activate && inv json.import '../demo/*.json'
 
 env	TERM xterm
 

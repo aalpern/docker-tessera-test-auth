@@ -20,7 +20,6 @@ run	pip install --install-option="--prefix=/var/lib/graphite" --install-option="
 # Add system service config
 add	./nginx.conf /etc/nginx/nginx.conf
 add	./htpasswd /etc/nginx/htpasswd
-add	./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Add graphite config
 add	./graphite/initial_data.json /var/lib/graphite/webapp/graphite/initial_data.json
@@ -44,6 +43,8 @@ run git checkout development
 run ./script/setup
 workdir	/src/tessera/tessera-server
 run	. env/bin/activate && inv run & sleep 5 && . env/bin/activate && inv json.import '../demo/*.json'
+
+add	./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 env	TERM xterm
 

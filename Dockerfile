@@ -1,4 +1,4 @@
-from nodesource/node:precise
+from nodesource/node:trusty
 maintainer Adam Alpern <adam.alpern@gmail.com>
 
 run	apt-get -y update

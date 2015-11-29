@@ -37,13 +37,13 @@ run	cd /var/lib/graphite/webapp/graphite && python manage.py syncdb --noinput
 run pip install virtualenv
 add ./config.py /var/lib/tessera/config.py
 run echo WAT
-run	git clone https://github.com/urbanairship/tessera.git /src/tessera
+run	git clone https://github.com/aalpern/tessera.git /src/tessera
 workdir	/src/tessera
-run git checkout development
 run ./script/setup
 workdir	/src/tessera/tessera-server
-run	. env/bin/activate && inv run & sleep 5 && . env/bin/activate && inv json.import '../demo/*.json'
+run	../script/server & sleep 5 && . env/bin/activate && invoke json.import '../demo/*.json'
 
+# Supervisord
 add	./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 env	TERM xterm
